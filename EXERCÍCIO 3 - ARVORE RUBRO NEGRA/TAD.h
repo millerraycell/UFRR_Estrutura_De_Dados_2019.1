@@ -1,59 +1,59 @@
-#ifndef TAD_H_INCLUDED
-#define TAD_H_INCLUDED
+//
+// Created by Miller on 03/05/2019.
+//
 
-typedef struct no
+#ifndef ARB_TAD_H
+#define ARB_TAD_H
+
+enum Color {RED, BLACK};
+
+typedef struct node
 {
-    int info;
-    struct no *esq;
-    struct no *dir;
+    struct node *father;
+    struct node *left;
+    struct node *right;
+    enum Color color;
+    int key;
+}Node;
 
-}Nodo;
-
-typedef struct arv_bin
+typedef struct tree
 {
-    Nodo* raiz;
+    Node *root;
+    Node *nil;
+}RB_TREE;
 
-}Arv_bin;
+RB_TREE *rbt_create();
 
-Arv_bin* arv_cria();
-Nodo* arv_cria_no(int c, Nodo* esq, Nodo* dir);
+void print_tree(RB_TREE *tree);
 
-void arv_imprime(Nodo* raiz);
-void arv_pre_imprime(Nodo* raiz);
-void arv_libera_arvore(Nodo* raiz);
+void infix_print_node(RB_TREE *tree, Node *root);
+void infix_print_tree(RB_TREE *tree);
 
-void arv_bin_busca(Arv_bin *arv, int k);
-Nodo *arv_busca_no(Nodo* raiz, int k);
+void prefix_print_node(RB_TREE *tree ,Node *root);
+void prefix_print_tree(RB_TREE *tree);
 
-void arv_insere(Arv_bin *arv, int k);
-Nodo *arv_insere_no(Nodo *raiz, int k);
+void postfix_print_node(RB_TREE *tree,Node *root);
+void postfix_print_tree(RB_TREE *tree);
 
-void abb_remove(Arv_bin* arv, int c);
-Nodo *remove_no(Nodo *raiz, int c);
 
-void abb_remove_invertido(Arv_bin* arv, int c);
-Nodo *remove_no_invertido(Nodo *raiz, int c);
+void left_rotate(RB_TREE *tree, Node *x);
+void right_rotate(RB_TREE *tree, Node *x);
 
-void is_abb(Arv_bin *arv);
-int is_abb_no(Nodo *raiz);
+void rb_insert(RB_TREE *tree, int z);
+void rb_insert_node(RB_TREE *tree, Node *z);
+Node *rb_insert_fixup(RB_TREE *tree, Node *k);
 
-int maior_valor_arv(Arv_bin *arv);
-int maior_valor_no(Nodo *raiz);
+int rb_research(RB_TREE *tree, int info);
+Node *rb_search(RB_TREE *tree, int info);
+Node *rb_search_node(RB_TREE *tree,Node *root, int info);
 
-int menor_valor_arv(Arv_bin *arv);
-int menor_valor_no(Nodo *raiz);
+void rb_transplant(RB_TREE *tree, Node *u, Node* v);
+Node *tree_minimum(RB_TREE *tree,Node *x);
+void rb_delete(RB_TREE *tree, int info);
+void rb_delete_node(RB_TREE *tree, Node *z);
+void rb_delete_fixup(RB_TREE *tree, Node *x);
 
-void encontrar_k_menor_valor_nodo(Nodo *raiz, int *k);
+void free_tree_nodes(RB_TREE *tree, Node* root);
+void free_tree(RB_TREE *tree);
 
-void arvores_iguais(Arv_bin *arv1, Arv_bin *arv2);
-int arvores_iguais_nodo(Nodo *raiz1, Nodo* raiz2);
-
-int arv_binaria_um_filho(Arv_bin *arv);
-int arv_binaria_um_filho_no(Nodo *raiz);
-
-Arv_bin *cria_com_pre_ordem_no(int *v, int tam);
-
-void verifica_sequencia(Arv_bin *arv, int *v);
-int verifica_sequencia_no(Nodo *raiz, int *v);
-
-#endif // TAD_H_INCLUDED
+#endif //ARB_TAD_H
